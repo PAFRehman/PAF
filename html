@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Will You Be My Friend?</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #ffe6e6;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #ff6699;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #yesBtn {
+            background: #66cc66;
+            color: white;
+        }
+
+        #noBtn {
+            background: #ff6666;
+            color: white;
+        }
+
+        .dance-emoji {
+            font-size: 100px;
+            animation: dance 1s infinite;
+            display: none;
+        }
+
+        @keyframes dance {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            75% { transform: rotate(-15deg); }
+        }
+
+        .thank-you {
+            font-size: 40px;
+            color: #ff6699;
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Will You Be My Friend? 😊</h1>
+        <div class="buttons">
+            <button id="yesBtn" onclick="acceptFriend()">Yes!</button>
+            <button id="noBtn" onmouseover="moveButton()" onclick="changeText()">No</button>
+        </div>
+        <div class="dance-emoji">💃🕺</div>
+        <div class="thank-you">Thank you! you are officially PAF friend now! 🎉</div>
+    </div>
+
+    <script>
+        let noCount = 0;
+        const sadMessages = ["I'll be sad...", "Please?", "Pretty please?", "Don't do this!", "Last chance!"];
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const danceEmoji = document.querySelector('.dance-emoji');
+        const thankYou = document.querySelector('.thank-you');
+
+        function changeText() {
+            noBtn.textContent = sadMessages[noCount % sadMessages.length];
+            yesBtn.style.transform = `scale(${1 + (noCount * 0.2)})`;
+            noCount++;
+            
+            if(noCount > 4) {
+                yesBtn.style.width = '100vw';
+                yesBtn.style.height = '100vh';
+                yesBtn.style.position = 'fixed';
+                yesBtn.style.top = '0';
+                yesBtn.style.left = '0';
+                yesBtn.style.borderRadius = '0';
+            }
+        }
+
+        function acceptFriend() {
+            document.querySelector('h1').style.display = 'none';
+            document.querySelector('.buttons').style.display = 'none';
+            danceEmoji.style.display = 'block';
+            thankYou.style.display = 'block';
+        }
+
+        function moveButton() {
+            if(noCount < 5) {
+                noBtn.style.position = 'absolute';
+                noBtn.style.left = `${Math.random() * 80}%`;
+                noBtn.style.top = `${Math.random() * 80}%`;
+            }
+        }
+    </script>
+</body>
+</html>
